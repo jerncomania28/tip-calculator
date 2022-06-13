@@ -6,10 +6,10 @@ import "./styles/App.styles.scss";
 
 const App = () => {
   const [bills, setBills] = useState();
-  const [custom, setCustom] = useState();
+  const [custom, setCustom] = useState(0);
   const [persons, setPersons] = useState();
   const [tip, setTip] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState(0.00);
 
   console.log(typeof total);
   console.log(typeof tip);
@@ -51,6 +51,8 @@ const App = () => {
       setTip(toDecimal);
       setTotal(total + toDecimal);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [custom, bills, persons]);
 
   const handleBillsChange = (e) => {
@@ -95,7 +97,6 @@ const App = () => {
                 type="number"
                 className="tips custom"
                 placeholder="custom"
-                value={custom}
                 onChange={handleCustomChange}
               />
             </div>
