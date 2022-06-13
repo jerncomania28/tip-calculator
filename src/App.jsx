@@ -6,7 +6,7 @@ import "./styles/App.styles.scss";
 
 const App = () => {
   const [bills, setBills] = useState();
-  const [custom, setCustom] = useState(0);
+  const [custom, setCustom] = useState();
   const [persons, setPersons] = useState();
   const [tip, setTip] = useState(0);
   const [total, setTotal] = useState(0);
