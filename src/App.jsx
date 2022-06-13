@@ -11,17 +11,6 @@ const App = () => {
   const [tip, setTip] = useState(0);
   const [total, setTotal] = useState(0.00);
 
-  console.log(typeof total);
-  console.log(typeof tip);
-
-  console.log(
-    `bills ${bills}`,
-    `custom ${custom}`,
-    `persons ${persons}`,
-    `tip ${tip}`,
-    `total ${total}`
-  );
-
   const handleReset = () => {
     setBills(0);
     setCustom(0);
