@@ -5,9 +5,9 @@ import { ReactComponent as Person } from "./images/icon-person.svg";
 import "./styles/App.styles.scss";
 
 const App = () => {
-  const [bills, setBills] = useState(0);
+  const [bills, setBills] = useState();
   const [custom, setCustom] = useState(0);
-  const [persons, setPersons] = useState(0);
+  const [persons, setPersons] = useState();
   const [tip, setTip] = useState(0);
   const [total, setTotal] = useState(0);
 
@@ -39,15 +39,19 @@ const App = () => {
   };
 
   const handleCustomClick = (e) => {
-    setCustom(Number(e.target.innerText.match(/\d+/g)[0]));
+    setCustom(parseInt(e.target.innerText));
   };
 
   useEffect(() => {
-    const newtip = ((custom / 100) * bills) / persons;
+    if (persons > 0) {
+      const newtip = ((custom / 100) * bills) / persons;
 
-    setTip(newtip.toFixed(2));
-    setTotal(newtip.toFixed(2));
-  }, [custom, bills, persons, total]);
+      const toDecimal = Number(newtip.toFixed(2));
+
+      setTip(toDecimal);
+      setTotal(total + toDecimal);
+    }
+  }, [custom, bills, persons]);
 
   const handleBillsChange = (e) => {
     setBills(e.target.value);
@@ -72,27 +76,29 @@ const App = () => {
             />
             <Dollar className="icon" />
           </div>
-          <div className="tip-calculator_tips">
-    
-            {[5, 10, 15, 25, 50].map((tip, index) => {
-              return (
-                <div
-                  className="tips"
-                  key={index}
-                  value={tip}
-                  onClick={handleCustomClick}
-                >
-                  {`${tip}%`}
-                </div>
-              );
-            })}
-            <input
-              type="number"
-              className="tips custom"
-              placeholder="custom"
-              value={custom}
-              onChange={handleCustomChange}
-            />
+          <div className="tip-calculator_tips_container">
+            <small>select tip %</small>
+            <div className="tip-calculator_tips">
+              {[5, 10, 15, 25, 50].map((tip, index) => {
+                return (
+                  <div
+                    className="tips"
+                    key={index}
+                    value={tip}
+                    onClick={handleCustomClick}
+                  >
+                    {`${tip}%`}
+                  </div>
+                );
+              })}
+              <input
+                type="number"
+                className="tips custom"
+                placeholder="custom"
+                value={custom}
+                onChange={handleCustomChange}
+              />
+            </div>
           </div>
           <div className="tip-calculator_inputs-box">
             <label>Number of People</label>
